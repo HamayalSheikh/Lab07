@@ -3,23 +3,8 @@
 
 name: Node.js CI
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [ 18.18.1]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-   on: push
+on: push
    jobs:
      build-node:
        runs-on: ubuntu-latest
