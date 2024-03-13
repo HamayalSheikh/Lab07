@@ -8,7 +8,6 @@ app.use(bodyParser.json());
 
 const tasks = [];
 
-// Create a new task
 app.post('/tasks', (req, res) => {
     const { title, description, dueDate, category, priority } = req.body;
     const task = {
@@ -24,7 +23,6 @@ app.post('/tasks', (req, res) => {
     res.status(201).json(task);
 });
 
-// Mark a task as completed
 app.put('/tasks/:id/complete', (req, res) => {
     const taskId = parseInt(req.params.id);
     const task = tasks.find(task => task.id === taskId);
@@ -36,7 +34,6 @@ app.put('/tasks/:id/complete', (req, res) => {
     }
 });
 
-// Get all tasks sorted by due date, category, or completion status
 app.get('/tasks', (req, res) => {
     const { sortBy } = req.query;
     let sortedTasks = [...tasks];
@@ -50,7 +47,6 @@ app.get('/tasks', (req, res) => {
     res.status(200).json(sortedTasks);
 });
 
-// Assign priority level to a task
 app.put('/tasks/:id/priority', (req, res) => {
     const taskId = parseInt(req.params.id);
     const { priority } = req.body;
@@ -63,10 +59,8 @@ app.put('/tasks/:id/priority', (req, res) => {
     }
 });
 
-// User authentication endpoints
 const users = [];
 
-// Register a new user
 app.post('/register', (req, res) => {
     const { username, password } = req.body;
     const user = {
@@ -78,7 +72,6 @@ app.post('/register', (req, res) => {
     res.status(201).json({ message: 'User registered successfully' });
 });
 
-// Login
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const user = users.find(user => user.username === username && user.password === password);
@@ -89,7 +82,6 @@ app.post('/login', (req, res) => {
     }
 });
 
-// Get tasks for a specific user
 app.get('/users/:username/tasks', (req, res) => {
     const { username } = req.params;
     const user = users.find(user => user.username === username);
@@ -100,7 +92,6 @@ app.get('/users/:username/tasks', (req, res) => {
     }
 });
 
-// Create a new task for a specific user
 app.post('/users/:username/tasks', (req, res) => {
     const { username } = req.params;
     const { title, description, dueDate, category, priority } = req.body;
@@ -122,7 +113,6 @@ app.post('/users/:username/tasks', (req, res) => {
     }
 });
 
-// Mark a task as completed for a specific user
 app.put('/users/:username/tasks/:id/complete', (req, res) => {
     const { username, id } = req.params;
     const user = users.find(user => user.username === username);
@@ -140,7 +130,6 @@ app.put('/users/:username/tasks/:id/complete', (req, res) => {
     }
 });
 
-// Assign priority level to a task for a specific user
 app.put('/users/:username/tasks/:id/priority', (req, res) => {
     const { username, id } = req.params;
     const { priority } = req.body;
